@@ -3,10 +3,6 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/ByteDream/crunchyroll-go"
-	"github.com/ByteDream/crunchyroll-go/utils"
-	"github.com/grafov/m3u8"
-	"github.com/spf13/cobra"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -18,6 +14,11 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
+
+	"github.com/ByteDream/crunchyroll-go"
+	"github.com/ByteDream/crunchyroll-go/utils"
+	"github.com/grafov/m3u8"
+	"github.com/spf13/cobra"
 )
 
 var (
@@ -199,7 +200,7 @@ func download(urls []string) {
 			out.Debugf("Information (json): %s\n", string(fmtOptionsBytes))
 		}
 
-		filename := outputFlag
+		filename := fmt.Sprintf("S%02d", episode.SeasonNum) + fmt.Sprintf("E%02d", episode.EpisodeNum) + "-" + outputFlag
 
 		fields := reflect.TypeOf(info)
 		values := reflect.ValueOf(info)
